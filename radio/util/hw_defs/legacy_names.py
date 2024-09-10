@@ -1,6 +1,31 @@
 """Legacy names used for each analog input in previous EdgeTx versions."""
 
 LEGACY_NAMES = [
+        {
+        "targets": {"xetoz1"},
+        "inputs": {
+            "LH": {
+                "yaml": "Rud",
+                "lua": "rud",
+                "description": "Rudder"
+            },
+            "LV": {
+                "yaml": "Ele",
+                "lua": "ele",
+                "description": "Elevator"
+            },
+            "RV": {
+                "yaml": "Thr",
+                "lua": "thr",
+                "description": "Throttle"
+            },
+            "RH": {
+                "yaml": "Ail",
+                "lua": "ail",
+                "description": "Aileron"
+            }
+        }
+    },
     {
         "targets": {"x10", "x10express", "t16", "tx16s", "t18", "f16", "v16"},
         "inputs": {
