@@ -90,6 +90,10 @@ def generate_from_template(json_filename, template_filename, target):
             template_str = template_file.read()
             template = env.from_string(template_str)
 
+            # print("//" + json_file)
+            # print("//" + root_obj)
+            # print("//" + template_filename)
+
             print(template.render(root_obj,
                                   adc_index=adc_index,
                                   adc_gpios=adc_gpios,

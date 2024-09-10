@@ -78,6 +78,11 @@ static inline void check_struct()
   #else
     CHKTYPE(TopBarPersistentData, 804);
   #endif
+#elif defined(PCBXETOZ)
+  CHKSIZE(LimitData, 11);
+  CHKSIZE(TimerData, 12);
+  CHKTYPE(TelemetryScreenData, 24);
+  CHKSIZE(ModelHeader, 12);
 #else
   #error CHKSIZE not set up
 #endif
@@ -110,6 +115,8 @@ static inline void check_struct()
   CHKSIZE(ModelData, 22190);
 #elif defined(PCBHORUS)
   CHKSIZE(ModelData, 22165);
+#elif defined(PCBXETOZ)
+  CHKSIZE(ModelData, 6161);
 #else
   #error CHKSIZE not set up
 #endif

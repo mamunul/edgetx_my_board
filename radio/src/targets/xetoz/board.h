@@ -36,7 +36,7 @@ void rotaryEncoderInit();
 void rotaryEncoderCheck();
 #endif
 
-#if defined(STM32F413xx) || defined(STM32F407xG)
+#if defined(STM32F405xG)
 #define FLASHSIZE                       0x100000 // 1M
 #else
 #define FLASHSIZE                       0x80000  // 512k
@@ -50,17 +50,8 @@ void rotaryEncoderCheck();
 
 #define LUA_MEM_MAX                     (0)    // max allowed memory usage for complete Lua  (in bytes), 0 means unlimited
 
-#if defined(PCBXLITE)
-# define BOOTLOADER_KEYS                0x0F
-#elif defined(RADIO_MT12)
-# define BOOTLOADER_KEYS                0x06
-#else
-# define BOOTLOADER_KEYS                0x42
-#endif
 
-#if defined(RADIO_FAMILY_T20)
-# define SECONDARY_BOOTLOADER_KEYS      0x1200
-#endif
+#define BOOTLOADER_KEYS                0x42
 
 extern uint16_t sessionTimer;
 
@@ -79,70 +70,16 @@ enum {
 #define INTERNAL_MODULE_ON()   gpio_set(INTMODULE_PWR_GPIO)
 #define INTERNAL_MODULE_OFF()  gpio_clear(INTMODULE_PWR_GPIO)
 
-#if (defined(INTERNAL_MODULE_PXX1) || defined(INTERNAL_MODULE_PXX2)) && (!defined(PCBX9LITE) || defined(PCBX9LITES))
-  #define HARDWARE_INTERNAL_RAS
-#endif
 
 #define EXTERNAL_MODULE_ON()            EXTERNAL_MODULE_PWR_ON()
 #define EXTERNAL_MODULE_OFF()           EXTERNAL_MODULE_PWR_OFF()
 
-// Trainer driver
-#define SLAVE_MODE()                    (g_model.trainerData.mode == TRAINER_MODE_SLAVE)
 
-#if defined(TRAINER_DETECT_GPIO)
-  // Trainer detect is a switch on the jack
-  #if defined(TRAINER_DETECT_INVERTED)
-    #define TRAINER_CONNECTED()           (gpio_read(TRAINER_DETECT_GPIO) ? 0 : 1)
-  #else
-    #define TRAINER_CONNECTED()           (gpio_read(TRAINER_DETECT_GPIO) ? 1 : 0)
-  #endif
-#elif defined(PCBXLITES)
-  // Trainer is on the same connector than Headphones
-  enum JackState
-  {
-    SPEAKER_ACTIVE,
-    HEADPHONE_ACTIVE,
-    TRAINER_ACTIVE,
-  };
-  extern uint8_t jackState;
-  #define TRAINER_CONNECTED()           (jackState == TRAINER_ACTIVE)
-#elif defined(PCBXLITE)
-  // No Tainer jack on Taranis X-Lite
-  #define TRAINER_CONNECTED()           false
-#else
-  // Trainer detect catches PPM, detection would use more CPU
-  #define TRAINER_CONNECTED()           true
-#endif
 
-// POTS and SLIDERS default configuration
-#if defined(RADIO_BOXER)
-#define XPOS_CALIB_DEFAULT  {0x5, 0xd, 0x16, 0x1f, 0x28}
-#endif
-
-#if defined(FUNCTION_SWITCHES)
-
-#define NUM_FUNCTIONS_SWITCHES 6
-#define NUM_FUNCTIONS_GROUPS   3
-
-#define DEFAULT_FS_CONFIG                                         \
-  (SWITCH_2POS << 10) + (SWITCH_2POS << 8) + (SWITCH_2POS << 6) + \
-      (SWITCH_2POS << 4) + (SWITCH_2POS << 2) + (SWITCH_2POS << 0)
-
-#define DEFAULT_FS_GROUPS                                 \
-  (1 << 10) + (1 << 8) + (1 << 6) + (1 << 4) + (1 << 2) + \
-      (1 << 0)  // Set all FS to group 1 to act like a 6pos
-
-#define DEFAULT_FS_STARTUP_CONFIG                         \
-  ((FS_START_PREVIOUS << 10) + (FS_START_PREVIOUS << 8) + \
-   (FS_START_PREVIOUS << 6) + (FS_START_PREVIOUS << 4) +  \
-   (FS_START_PREVIOUS << 2) +                             \
-   (FS_START_PREVIOUS << 0))  // keep last state by default
-
-#else
 
 #define NUM_FUNCTIONS_SWITCHES 0
 
-#endif
+
 
 #if defined(ADC_GPIO_PIN_STICK_TH)
   #define SURFACE_RADIO  true
@@ -199,9 +136,6 @@ extern "C" {
 
 // Power driver
 #define SOFT_PWR_CTRL
-#if defined(PWR_BUTTON_PRESS) && !defined(RADIO_COMMANDO8)
-#  define STARTUP_ANIMATION
-#endif
 
 void pwrInit();
 uint32_t pwrCheck();
@@ -332,11 +266,6 @@ void ledBlue();
 #define LCD_CONTRAST_MAX                30
 #endif
 
-#if defined(RADIO_MT12)
-#define LCD_BRIGHTNESS_DEFAULT          50
-#elif defined(RADIO_T12MAX)
-#define LCD_BRIGHTNESS_DEFAULT          30
-#endif
 
 #if defined(OLED_SCREEN)
   #define LCD_CONTRAST_DEFAULT          254 // full brightness
@@ -382,19 +311,6 @@ void lcdSetInvert(bool invert);
 void lcdSetContrast(bool useDefault = false);
 #endif
 void lcdFlushed();
-
-// Top LCD driver
-#if defined(TOPLCD_GPIO)
-void toplcdInit();
-void toplcdOff();
-void toplcdRefreshStart();
-void toplcdRefreshEnd();
-void setTopFirstTimer(int32_t value);
-void setTopSecondTimer(uint32_t value);
-void setTopRssi(uint32_t rssi);
-void setTopBatteryState(int state, uint8_t blinking);
-void setTopBatteryValue(uint32_t volts);
-#endif
 
 #if defined(CROSSFIRE)
 #define TELEMETRY_FIFO_SIZE             128
