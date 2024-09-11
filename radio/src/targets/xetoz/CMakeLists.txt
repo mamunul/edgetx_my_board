@@ -24,7 +24,7 @@ if(PCB STREQUAL XETOZ)
   set(PXX_FREQUENCY "HIGH")
   set(PWR_BUTTON "PRESS" CACHE STRING "Pwr button type (PRESS/SWITCH)")
   set(CPU_TYPE_FULL STM32F405xG)
-  set(HAPTIC NO)
+  set(HAPTIC YES)
   set(FLAVOUR xetoz1)
   add_definitions(-DBOARD_NAME="xetoz1")
   add_definitions(-DPCBXETOZ)
@@ -40,7 +40,7 @@ if(PCB STREQUAL XETOZ)
   set(PXX2 ON)
   set(BLUETOOTH NO)
   set(IMU NO)
-  set(ROTARY_ENCODER NO)
+  set(ROTARY_ENCODER YES)
   set(USB_CHARGER NO)
   add_definitions(-DMANUFACTURER_XETOZ)
 endif()
@@ -93,7 +93,7 @@ set(TARGET_SRC_DIR targets/${TARGET_DIR})
 set(BOARD_COMMON_SRC
   ${TARGET_SRC_DIR}/board.cpp
   ${TARGET_SRC_DIR}/led_driver.cpp
-  # ${TARGET_SRC_DIR}/haptic_driver.cpp
+  ${TARGET_SRC_DIR}/haptic_driver.cpp
   ${TARGET_SRC_DIR}/backlight_driver.cpp
   ${TARGET_SRC_DIR}/${LCD_DRIVER}
   targets/common/arm/stm32/abnormal_reboot.cpp

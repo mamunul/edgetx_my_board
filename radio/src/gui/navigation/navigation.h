@@ -94,7 +94,9 @@ int checkIncDec(event_t event, int val, int i_min, int i_max, int srcMin, int sr
 #define checkIncDecGen(event, i_val, i_min, i_max)      \
   checkIncDec(event, i_val, i_min, i_max, EE_GENERAL)
 
+#ifndef NAVIGATION_LINE_BY_LINE 
 #define NAVIGATION_LINE_BY_LINE  0x40
+#endif
 
 #define CHECK_FLAG_NO_SCREEN_INDEX   1
 

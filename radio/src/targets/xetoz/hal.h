@@ -97,12 +97,12 @@
 #define SWITCHES_GPIO_PIN_D LL_GPIO_PIN_2  // PE.02
 
 // ADC
-  #define ADC_MAIN                      ADC3
-  #define ADC_DMA                       DMA2
-  #define ADC_DMA_CHANNEL               LL_DMA_CHANNEL_2
-  #define ADC_DMA_STREAM                LL_DMA_STREAM_0
-  #define ADC_DMA_STREAM_IRQ            DMA2_Stream0_IRQn
-  #define ADC_DMA_STREAM_IRQHandler     DMA2_Stream0_IRQHandler
+#define ADC_MAIN ADC3
+#define ADC_DMA DMA2
+#define ADC_DMA_CHANNEL LL_DMA_CHANNEL_2
+#define ADC_DMA_STREAM LL_DMA_STREAM_0
+#define ADC_DMA_STREAM_IRQ DMA2_Stream0_IRQn
+#define ADC_DMA_STREAM_IRQHandler DMA2_Stream0_IRQHandler
 
 #define ADC_SAMPTIME LL_ADC_SAMPLINGTIME_28CYCLES
 #define ADC_CHANNEL_RTC_BAT LL_ADC_CHANNEL_VBAT
@@ -117,12 +117,38 @@
 #define ADC_CHANNEL_STICK_LV LL_ADC_CHANNEL_3  // ADC1_IN3
 
 #define ADC_GPIO_PIN_BATT LL_GPIO_PIN_0  // PC.00
-#define ADC_GPIOA_PINS   (ADC_GPIO_PIN_STICK_RV | ADC_GPIO_PIN_STICK_RH | ADC_GPIO_PIN_STICK_LH | ADC_GPIO_PIN_STICK_LV)
+#define ADC_GPIOA_PINS                                                     \
+  (ADC_GPIO_PIN_STICK_RV | ADC_GPIO_PIN_STICK_RH | ADC_GPIO_PIN_STICK_LH | \
+   ADC_GPIO_PIN_STICK_LV)
 #define ADC_GPIOC_PINS (ADC_GPIO_PIN_BATT)
 #define ADC_CHANNEL_BATT LL_ADC_CHANNEL_10  // ADC1_IN10
 
-
 #define ADC_DIRECTION {1, -1, -1, 1, -1, 1}
+#define ADC_VREF_PREC2 300
+
+// Rotary Encoder
+
+#define ROTARY_ENCODER_NAVIGATION
+#define ROTARY_ENCODER_GPIO GPIOD
+#define ROTARY_ENCODER_GPIO_PIN_A LL_GPIO_PIN_12  // PD.12
+#define ROTARY_ENCODER_GPIO_PIN_B LL_GPIO_PIN_13  // PD.13
+#define ROTARY_ENCODER_POSITION() (ROTARY_ENCODER_GPIO->IDR >> 12) & 0x03
+#define ROTARY_ENCODER_EXTI_LINE1 LL_EXTI_LINE_12
+#define ROTARY_ENCODER_EXTI_LINE2 LL_EXTI_LINE_13
+#define ROTARY_ENCODER_EXTI_PORT LL_SYSCFG_EXTI_PORTD
+#define ROTARY_ENCODER_EXTI_SYS_LINE1 LL_SYSCFG_EXTI_LINE12
+#define ROTARY_ENCODER_EXTI_SYS_LINE2 LL_SYSCFG_EXTI_LINE13
+// ROTARY_ENCODER_EXTI IRQ
+#if !defined(USE_EXTI15_10_IRQ)
+#define USE_EXTI15_10_IRQ
+#define EXTI15_10_IRQ_Priority 5
+#endif
+
+#if defined(ROTARY_ENCODER_NAVIGATION)
+  #define ROTARY_ENCODER_TIMER            TIM5
+  #define ROTARY_ENCODER_TIMER_IRQn       TIM5_IRQn
+  #define ROTARY_ENCODER_TIMER_IRQHandler TIM5_IRQHandler
+#endif
 
 // PWR and LED driver
 
@@ -153,7 +179,6 @@
 
 // Trainer Port
 
-
 // Serial Port
 
 #define HARDWARE_TRAINER_AUX_SERIAL
@@ -165,7 +190,6 @@
 #define AUX_SERIAL_DMA_RX DMA1
 #define AUX_SERIAL_DMA_RX_STREAM LL_DMA_STREAM_1
 #define AUX_SERIAL_DMA_RX_CHANNEL LL_DMA_CHANNEL_4
-
 
 // Telemetry
 #define TELEMETRY_DIR_GPIO GPIO_PIN(GPIOC, 4)  // PD.04
@@ -203,12 +227,10 @@
 #define USE_EXTI4_IRQ
 #define EXTI4_IRQ_Priority 5
 
-
 // USB Charger
 #if defined(USB_CHARGER)
 #define USB_CHARGER_GPIO GPIO_PIN(GPIOB, 5)
 #endif
-
 
 // USB
 #define USB_GPIO_VBUS GPIO_PIN(GPIOA, 9)  // PA.09
@@ -222,7 +244,6 @@
 #define BACKLIGHT_TIMER TIM10
 #define BACKLIGHT_GPIO GPIO_PIN(GPIOB, 8)  // PB.08
 #define BACKLIGHT_GPIO_AF GPIO_AF3
-
 
 // LCD driver
 #define LCD_VERTICAL_INVERT
@@ -247,24 +268,28 @@
 #define LCD_GPIO_AF GPIO_AF6
 
 #if defined(SSD1309_LCD)
-  #define LCD_SPI_PRESCALER             SPI_CR1_BR_1
+#define LCD_SPI_PRESCALER SPI_CR1_BR_1
 #else
-  #define LCD_SPI_PRESCALER             0
+#define LCD_SPI_PRESCALER 0
 #endif
+
+
+//Haptic
+
+#define HAPTIC_GPIO                   GPIO_PIN(GPIOC, 12) // PC.12
 
 // I2C Bus 1: EEPROM and CAT5137 digital pot for volume control
 #define I2C_B1 I2C1
 #define I2C_B1_GPIO_AF LL_GPIO_AF_4
 
-#if defined(PCBXLITE) || defined(PCBX9LITE) || defined(PCBX7ACCESS) || \
-    defined(RADIO_ZORRO) || defined(RADIO_POCKET) || defined(RADIO_X9DP2019)
-#define I2C_B1_SCL_GPIO GPIO_PIN(GPIOB, 8)  // PB.08
-#define I2C_B1_SDA_GPIO GPIO_PIN(GPIOB, 9)  // PB.09
-#else
+// #if defined(PCBXLITE) || defined(PCBX9LITE) || defined(PCBX7ACCESS) || 
+//     defined(RADIO_ZORRO) || defined(RADIO_POCKET) || defined(RADIO_X9DP2019)
+// #define I2C_B1_SCL_GPIO GPIO_PIN(GPIOB, 8)  // PB.08
+// #define I2C_B1_SDA_GPIO GPIO_PIN(GPIOB, 9)  // PB.09
+// #else
 #define I2C_B1_SCL_GPIO GPIO_PIN(GPIOB, 6)  // PB.06
 #define I2C_B1_SDA_GPIO GPIO_PIN(GPIOB, 7)  // PB.07
-#endif
-
+// #endif
 
 // I2C Volume control
 #if !defined(SOFTWARE_VOLUME)
@@ -274,19 +299,18 @@
 
 #define I2C_B1_CLK_RATE 400000
 
-
 // SD - SDIO
-#define SD_PRESENT_GPIO                   GPIO_PIN(GPIOC, 5) // PC.05
-#define SD_SDIO_DMA                       DMA2
-#define SD_SDIO_DMA_STREAM                DMA2_Stream3 // or Stream6
-#define SD_SDIO_DMA_CHANNEL               LL_DMA_CHANNEL_4
-#define SD_SDIO_DMA_IRQn                  DMA2_Stream3_IRQn
-#define SD_SDIO_DMA_IRQHANDLER            DMA2_Stream3_IRQHandler
-#define SD_SDIO_CLK_DIV(fq)               ((48000000 / (fq)) - 2)
-#define SD_SDIO_INIT_CLK_DIV              SD_SDIO_CLK_DIV(400000)
-#define SD_SDIO_TRANSFER_CLK_DIV          SD_SDIO_CLK_DIV(24000000)
+#define SD_PRESENT_GPIO GPIO_PIN(GPIOC, 5)  // PC.05
+#define SD_SDIO_DMA DMA2
+#define SD_SDIO_DMA_STREAM DMA2_Stream3  // or Stream6
+#define SD_SDIO_DMA_CHANNEL LL_DMA_CHANNEL_4
+#define SD_SDIO_DMA_IRQn DMA2_Stream3_IRQn
+#define SD_SDIO_DMA_IRQHANDLER DMA2_Stream3_IRQHandler
+#define SD_SDIO_CLK_DIV(fq) ((48000000 / (fq)) - 2)
+#define SD_SDIO_INIT_CLK_DIV SD_SDIO_CLK_DIV(400000)
+#define SD_SDIO_TRANSFER_CLK_DIV SD_SDIO_CLK_DIV(24000000)
 
-#define STORAGE_USE_SDIO  
+#define STORAGE_USE_SDIO
 
 // Audio
 #define AUDIO_RCC_APB1Periph LL_APB1_GRP1_PERIPH_DAC1
@@ -299,7 +323,7 @@
 #define AUDIO_DMA_Stream_IRQHandler DMA1_Stream5_IRQHandler
 #define AUDIO_TIMER TIM6
 
-#define AUDIO_SPEAKER_ENABLE_GPIO GPIO_PIN(GPIOD, 14)     // PD.14
+#define AUDIO_SPEAKER_ENABLE_GPIO GPIO_PIN(GPIOD, 14)  // PD.14
 
 // Millisecond timer
 #define MS_TIMER TIM14

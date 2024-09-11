@@ -31,6 +31,7 @@
 // Update: These are now all only used within this class.
 //  External access is only via getEEpromSize() and getFlashSize()
 
+#define EESIZE_XETOZ                   (192*1024)
 #define EESIZE_TARANIS                 (32*1024)
 #define EESIZE_SKY9X                   (128*4096)
 #define EESIZE_9XRPRO                  (128*4096)
@@ -38,6 +39,7 @@
 
 // getFlashSize() (and these macros) is only used by radiointerface::getDfuArgs (perhaps can find a better way?)
 
+#define FSIZE_XETOZ               (1024*1024)
 #define FSIZE_TARANIS                  (512*1024)
 #define FSIZE_SKY9X                    (256*1024)
 #define FSIZE_9XRPRO                   (512*1024)
@@ -158,6 +160,8 @@ uint32_t Boards::getFourCC(Type board)
       return 0x3A78746F;
     case BOARD_FLYSKY_PL18:
       return 0x4878746F;
+    case BOARD_XETOZ_Z1:
+      return 0x8878746F;
     default:
       return 0;
   }
@@ -215,6 +219,8 @@ int Boards::getEEpromSize(Board::Type board)
     case BOARD_FATFISH_F16:
     case BOARD_HELLORADIOSKY_V16:
       return 0;
+    case BOARD_XETOZ_Z1:
+      return EESIZE_XETOZ;
     default:
       return 0;
   }
@@ -270,6 +276,8 @@ int Boards::getFlashSize(Type board)
     case BOARD_FATFISH_F16:
     case BOARD_HELLORADIOSKY_V16:
       return FSIZE_HORUS;
+    case BOARD_XETOZ_Z1:
+      return FSIZE_XETOZ;
     case BOARD_UNKNOWN:
       return FSIZE_MAX;
     default:
@@ -585,6 +593,8 @@ QString Boards::getBoardName(Board::Type board)
       return "Fatfish F16";
     case BOARD_HELLORADIOSKY_V16:
       return "HelloRadioSky V16";
+    case BOARD_XETOZ_Z1:
+      return "XETOZ Z1";
     default:
       return CPN_STR_UNKNOWN_ITEM;
   }
@@ -645,7 +655,7 @@ QList<int> Boards::getSupportedInternalModules(Board::Type board)
         (int)MODULE_TYPE_CROSSFIRE,
         (int)MODULE_TYPE_MULTIMODULE,
     });
-  } else if (IS_TARANIS(board)) {
+  } else if (IS_TARANIS(board) || IS_XETOZ(board)) {
     modules.append({(int)MODULE_TYPE_XJT_PXX1});
   }
 
@@ -662,6 +672,7 @@ int Boards::getDefaultInternalModules(Board::Type board)
   case BOARD_HORUS_X12S:
   case BOARD_X10:
   case BOARD_TARANIS_XLITE:
+  case BOARD_XETOZ_Z1:
     return (int)MODULE_TYPE_XJT_PXX1;
 
   case BOARD_TARANIS_X7_ACCESS:
@@ -734,6 +745,7 @@ void Boards::getBattRange(Board::Type board, int& vmin, int& vmax, unsigned int&
     case BOARD_JUMPER_T14:
     case BOARD_JUMPER_TPRO:
     case BOARD_JUMPER_TPROV2:
+    case BOARD_XETOZ_Z1:
     default:
       BR(60, 80, 65)
       break;

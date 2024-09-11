@@ -104,6 +104,10 @@ enum MenuModelSetupItems {
   ITEM_MODEL_SETUP_CUSTOM_THROTTLE_WARNING,
   ITEM_MODEL_SETUP_CUSTOM_THROTTLE_WARNING_VALUE,
   ITEM_MODEL_SETUP_SWITCHES_WARNING1,
+#if defined(PCBXETOZ)
+  ITEM_MODEL_SETUP_SWITCHES_WARNING2,
+    ITEM_MODEL_SETUP_POTS_WARNING,
+#endif
 #if defined(PCBTARANIS)
   ITEM_MODEL_SETUP_SWITCHES_WARNING2,
   ITEM_MODEL_SETUP_POTS_WARNING,
@@ -603,7 +607,7 @@ void menuModelSetup(event_t event)
   int8_t old_editMode = s_editMode;
   bool CURSOR_ON_CELL = (menuHorizontalPosition >= 0);
 
-#if defined(PCBTARANIS)
+#if defined(PCBTARANIS) || defined(PCBXETOZ)
   int8_t old_posHorz = menuHorizontalPosition;
 #endif
 
@@ -644,7 +648,7 @@ void menuModelSetup(event_t event)
 
     EXTRA_MODULE_ROWS
 
-    TRAINER_ROWS,
+    TRAINER_ROWS
 
     // View options
     0,

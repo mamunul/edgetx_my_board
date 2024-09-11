@@ -88,6 +88,7 @@ namespace Board {
     BOARD_JUMPER_T20V2,
     BOARD_FATFISH_F16,
     BOARD_HELLORADIOSKY_V16,
+    BOARD_XETOZ_Z1,
     BOARD_TYPE_COUNT,
     BOARD_TYPE_MAX = BOARD_TYPE_COUNT - 1
   };
@@ -590,6 +591,11 @@ inline bool IS_TARANIS_X9LITE(Board::Type board)
 inline bool IS_TARANIS_X9LITES(Board::Type board)
 {
   return board == Board::BOARD_TARANIS_X9LITES;
+}
+
+inline bool IS_XETOZ(Board::Type board)
+{
+  return board==Board::BOARD_XETOZ_Z1;
 }
 
 inline bool IS_TARANIS_X9(Board::Type board)

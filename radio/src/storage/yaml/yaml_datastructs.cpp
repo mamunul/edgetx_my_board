@@ -50,6 +50,8 @@
  #endif
 #elif defined(PCBX9LITE)
  #include "yaml_datastructs_128x64.cpp"
+ #elif defined(PCBXETOZ)
+ #include "yaml_datastructs_128x64.cpp"
 #elif defined(PCBXLITE) && !defined(PCBXLITES)
  #include "yaml_datastructs_xlite.cpp"
 #elif defined(PCBXLITES)

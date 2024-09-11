@@ -76,6 +76,9 @@ enum {
 
 
 
+// Trainer driver
+#define SLAVE_MODE()                    (g_model.trainerData.mode == TRAINER_MODE_SLAVE)
+
 
 #define NUM_FUNCTIONS_SWITCHES 0
 

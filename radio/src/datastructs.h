@@ -116,7 +116,7 @@ static inline void check_struct()
 #elif defined(PCBHORUS)
   CHKSIZE(ModelData, 22165);
 #elif defined(PCBXETOZ)
-  CHKSIZE(ModelData, 6161);
+  CHKSIZE(ModelData, 6329);
 #else
   #error CHKSIZE not set up
 #endif
