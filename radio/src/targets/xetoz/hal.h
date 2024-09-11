@@ -21,6 +21,34 @@
 
 #pragma once
 
+
+/*
+
+STM32F405 Pin assignment
+
+Module(UART):        PA9 PA10
+Volume Encoder(I2C):                         PB6 PB7
+SDCard:              PA8                                                  PC8 PC9 PC10 PC11 PC12     PD2
+LCD:                 PA5 PA6 PA7 PA13 PA14
+Keys:                                        PB0 PB1 PB3 PB4 PB5 PB8
+Trims:                                                                    PC0 PC1 PC2 PC3
+Switch:                                      PB9 PB10 PB11 PB12
+Sticks:                                                                   PC4 PC5 PC6 PC7
+PWR_Button, PWR_Led: PA0                     PB2
+Module_PWR:          PA1
+Backlight:                                   PB14
+Audio_enable:        PA2
+Audio_OUT:                                   PB15
+Battery:                                     PB13
+Status Leds:         PA3 PA4
+USB:                 PA11 PA12 PA15
+32KHz:                                                                    PC14 PC15
+
+AvailablePins:                                                            PC13
+
+*/
+
+
 #if defined(STM32F4)
 #define CPU_FREQ 168000000
 #define PERI1_FREQUENCY 42000000
@@ -140,30 +168,6 @@
 #define ADC_DIRECTION {1, -1, -1, 1, -1, 1}
 #define ADC_VREF_PREC2 300
 
-// Rotary Encoder
-
-#define ROTARY_ENCODER_NAVIGATION
-#define ROTARY_ENCODER_GPIO GPIOD
-#define ROTARY_ENCODER_GPIO_PIN_A LL_GPIO_PIN_12  // PD.12
-#define ROTARY_ENCODER_GPIO_PIN_B LL_GPIO_PIN_13  // PD.13
-#define ROTARY_ENCODER_POSITION() (ROTARY_ENCODER_GPIO->IDR >> 12) & 0x03
-#define ROTARY_ENCODER_EXTI_LINE1 LL_EXTI_LINE_12
-#define ROTARY_ENCODER_EXTI_LINE2 LL_EXTI_LINE_13
-#define ROTARY_ENCODER_EXTI_PORT LL_SYSCFG_EXTI_PORTD
-#define ROTARY_ENCODER_EXTI_SYS_LINE1 LL_SYSCFG_EXTI_LINE12
-#define ROTARY_ENCODER_EXTI_SYS_LINE2 LL_SYSCFG_EXTI_LINE13
-// ROTARY_ENCODER_EXTI IRQ
-#if !defined(USE_EXTI15_10_IRQ)
-#define USE_EXTI15_10_IRQ
-#define EXTI15_10_IRQ_Priority 5
-#endif
-
-#if defined(ROTARY_ENCODER_NAVIGATION)
-#define ROTARY_ENCODER_TIMER TIM5
-#define ROTARY_ENCODER_TIMER_IRQn TIM5_IRQn
-#define ROTARY_ENCODER_TIMER_IRQHandler TIM5_IRQHandler
-#endif
-
 // PWR and LED driver
 
 #define PWR_SWITCH_GPIO GPIO_PIN(GPIOA, 1)  // PA.01
@@ -172,7 +176,7 @@
 #define STATUS_LEDS
 #define GPIO_LED_GPIO_ON gpio_clear
 #define GPIO_LED_GPIO_OFF gpio_set
-#define LED_GREEN_GPIO GPIO_PIN(GPIOA, 2)  // PA.02
+// #define LED_GREEN_GPIO GPIO_PIN(GPIOA, 2)  // PA.02
 #define LED_RED_GPIO GPIO_PIN(GPIOA, 3)    // PA.03
 #define LED_BLUE_GPIO GPIO_PIN(GPIOA, 4)   // PA.04
 
@@ -180,7 +184,7 @@
 
 #define EXTERNAL_ANTENNA
 
-#define INTMODULE_PWR_GPIO GPIO_PIN(GPIOD, 2)  // PD.02
+#define INTMODULE_PWR_GPIO GPIO_PIN(GPIOB, 2)  // PB.02
 #define INTMODULE_TX_GPIO GPIO_PIN(GPIOA, 9)   // PA.09
 #define INTMODULE_RX_GPIO GPIO_PIN(GPIOA, 10)  // PA.10
 #define INTMODULE_USART USART1
@@ -195,51 +199,56 @@
 
 // Serial Port
 
-#define HARDWARE_TRAINER_AUX_SERIAL
-#define AUX_SERIAL_GPIO GPIOB
-#define AUX_SERIAL_TX_GPIO GPIO_PIN(GPIOB, 10)  // PB.10
-#define AUX_SERIAL_RX_GPIO GPIO_PIN(GPIOB, 11)  // PB.11
-#define AUX_SERIAL_USART USART3
-#define AUX_SERIAL_USART_IRQn USART3_IRQn
-#define AUX_SERIAL_DMA_RX DMA1
-#define AUX_SERIAL_DMA_RX_STREAM LL_DMA_STREAM_1
-#define AUX_SERIAL_DMA_RX_CHANNEL LL_DMA_CHANNEL_4
-
 // Telemetry
-#define TELEMETRY_DIR_GPIO GPIO_PIN(GPIOC, 4)  // PD.04
+#define TELEMETRY_DIR_GPIO GPIO_PIN(GPIOD, 2)  // PD.02
 
 #define TELEMETRY_SET_INPUT 0
-#define TELEMETRY_TX_GPIO GPIO_PIN(GPIOC, 5)  // PD.05
-#define TELEMETRY_RX_GPIO GPIO_PIN(GPIOC, 6)  // PD.06
-#define TELEMETRY_USART USART2
-#define TELEMETRY_DMA DMA1
-#define TELEMETRY_DMA_Stream_TX LL_DMA_STREAM_6
-#define TELEMETRY_DMA_Channel_TX LL_DMA_CHANNEL_4
-#define TELEMETRY_DMA_TX_Stream_IRQ DMA1_Stream6_IRQn
-#define TELEMETRY_DMA_TX_IRQHandler DMA1_Stream6_IRQHandler
-#define TELEMETRY_DMA_TX_FLAG_TC DMA_IT_TCIF6
-#define TELEMETRY_USART_IRQHandler USART2_IRQHandler
-#define TELEMETRY_USART_IRQn USART2_IRQn
-#define TELEMETRY_EXTI_PORT LL_SYSCFG_EXTI_PORTD
-#define TELEMETRY_EXTI_SYS_LINE LL_SYSCFG_EXTI_LINE6
-#define TELEMETRY_EXTI_LINE LL_EXTI_LINE_6
-#define TELEMETRY_EXTI_TRIGGER LL_EXTI_TRIGGER_RISING
-// TELEMETRY_EXTI IRQ
-#if !defined(USE_EXTI9_5_IRQ)
-#define USE_EXTI9_5_IRQ
-#endif
-// overwrite priority
-#undef EXTI9_5_IRQ_Priority
-#define EXTI9_5_IRQ_Priority TELEMETRY_EXTI_PRIO
+#define TELEMETRY_TX_GPIO GPIO_PIN(GPIOA, 9)   // PA.09
+#define TELEMETRY_RX_GPIO GPIO_PIN(GPIOA, 10)  // PA.10
+#define TELEMETRY_USART                 USART2
+#define TELEMETRY_USART_IRQn            USART2_IRQn
+#define TELEMETRY_DMA                   DMA1
+#define TELEMETRY_DMA_Stream_TX         LL_DMA_STREAM_6
+#define TELEMETRY_DMA_Channel_TX        LL_DMA_CHANNEL_4
+#define TELEMETRY_DMA_TX_Stream_IRQ     DMA1_Stream6_IRQn
+#define TELEMETRY_DMA_TX_IRQHandler     DMA1_Stream6_IRQHandler
+// #define TELEMETRY_DMA_Stream_RX         LL_DMA_STREAM_5
+// #define TELEMETRY_DMA_Channel_RX        LL_DMA_CHANNEL_4
 
-#define TELEMETRY_TIMER TIM11
-#define TELEMETRY_TIMER_IRQn TIM1_TRG_COM_TIM11_IRQn
-#define TELEMETRY_TIMER_IRQHandler TIM1_TRG_COM_TIM11_IRQHandler
 
 // Software IRQ (Prio 5 -> FreeRTOS compatible)
-#define TELEMETRY_RX_FRAME_EXTI_LINE LL_EXTI_LINE_4
+#define TELEMETRY_RX_FRAME_EXTI_LINE    LL_EXTI_LINE_4
 #define USE_EXTI4_IRQ
 #define EXTI4_IRQ_Priority 5
+// #define TELEMETRY_USART USART2
+// #define TELEMETRY_DMA DMA1
+// #define TELEMETRY_DMA_Stream_TX LL_DMA_STREAM_6
+// #define TELEMETRY_DMA_Channel_TX LL_DMA_CHANNEL_4
+// #define TELEMETRY_DMA_TX_Stream_IRQ DMA1_Stream6_IRQn
+// #define TELEMETRY_DMA_TX_IRQHandler DMA1_Stream6_IRQHandler
+// #define TELEMETRY_DMA_TX_FLAG_TC DMA_IT_TCIF6
+// #define TELEMETRY_USART_IRQHandler USART2_IRQHandler
+// #define TELEMETRY_USART_IRQn USART2_IRQn
+// #define TELEMETRY_EXTI_PORT LL_SYSCFG_EXTI_PORTD
+// #define TELEMETRY_EXTI_SYS_LINE LL_SYSCFG_EXTI_LINE6
+// #define TELEMETRY_EXTI_LINE LL_EXTI_LINE_6
+// #define TELEMETRY_EXTI_TRIGGER LL_EXTI_TRIGGER_RISING
+// // TELEMETRY_EXTI IRQ
+// #if !defined(USE_EXTI9_5_IRQ)
+// #define USE_EXTI9_5_IRQ
+// #endif
+// // overwrite priority
+// #undef EXTI9_5_IRQ_Priority
+// #define EXTI9_5_IRQ_Priority TELEMETRY_EXTI_PRIO
+
+// #define TELEMETRY_TIMER TIM11
+// #define TELEMETRY_TIMER_IRQn TIM1_TRG_COM_TIM11_IRQn
+// #define TELEMETRY_TIMER_IRQHandler TIM1_TRG_COM_TIM11_IRQHandler
+
+// // Software IRQ (Prio 5 -> FreeRTOS compatible)
+// #define TELEMETRY_RX_FRAME_EXTI_LINE LL_EXTI_LINE_4
+// #define USE_EXTI4_IRQ
+// #define EXTI4_IRQ_Priority 5
 
 // USB Charger
 #if defined(USB_CHARGER)
@@ -287,10 +296,6 @@
 #define LCD_SPI_PRESCALER 0
 #endif
 
-// Haptic
-
-#define HAPTIC_GPIO GPIO_PIN(GPIOC, 12)  // PC.12
-
 // I2C Bus 1: EEPROM and CAT5137 digital pot for volume control
 #define I2C_B1 I2C1
 #define I2C_B1_GPIO_AF LL_GPIO_AF_4
@@ -331,7 +336,7 @@
 #define AUDIO_DMA_Stream_IRQHandler DMA1_Stream5_IRQHandler
 #define AUDIO_TIMER TIM6
 
-#define AUDIO_SPEAKER_ENABLE_GPIO GPIO_PIN(GPIOD, 14)  // PD.14
+#define AUDIO_SPEAKER_ENABLE_GPIO GPIO_PIN(GPIOA, 2)  // PA.02
 
 // Millisecond timer
 #define MS_TIMER TIM14

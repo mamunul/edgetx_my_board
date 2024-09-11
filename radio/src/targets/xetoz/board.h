@@ -189,13 +189,13 @@ void audioConsumeCurrentBuffer();
 #define audioEnableIrq() __enable_irq()
 
 // Haptic driver
-void hapticInit();
-void hapticOff();
-#if defined(HAPTIC_PWM)
-void hapticOn(uint32_t pwmPercent);
-#else
-void hapticOn();
-#endif
+// void hapticInit();
+// void hapticOff();
+// #if defined(HAPTIC_PWM)
+// void hapticOn(uint32_t pwmPercent);
+// #else
+// void hapticOn();
+// #endif
 
 #define DEBUG_BAUDRATE 115200
 #define LUA_DEFAULT_BAUDRATE 115200

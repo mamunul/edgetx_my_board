@@ -67,6 +67,8 @@ HardwareOptions hardwareOptions;
 #include "storage/storage.h"
 #endif
 
+void per5ms() {} // make linker happy
+
 void boardInit()
 {
   LL_APB1_GRP1_EnableClock(AUDIO_RCC_APB1Periph);

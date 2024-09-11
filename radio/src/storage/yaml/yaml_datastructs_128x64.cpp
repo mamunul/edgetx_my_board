@@ -344,7 +344,7 @@ static const struct YamlNode struct_RadioData[] = {
   YAML_UNSIGNED( "backlightColor", 8 ),
   YAML_STRING("bluetoothName", 10),
   YAML_STRING("ownerRegistrationID", 8),
-  YAML_CUSTOM("rotEncDirection",r_rotEncDirection,nullptr),
+  // YAML_CUSTOM("rotEncDirection",r_rotEncDirection,nullptr),
   YAML_UNSIGNED( "rotEncMode", 3 ),
   YAML_SIGNED( "uartSampleMode", 2 ),
   YAML_PADDING( 3 ),

@@ -17,14 +17,14 @@ set(PPM_LIMITS_SYMETRICAL YES)
 
 add_definitions(-DPCBXETOZ -DAUDIO -DVOICE)
 
-if(PCB STREQUAL XETOZ)
+# if(PCB STREQUAL XETOZ)
   set(DEFAULT_INTERNAL_MODULE ISRM_PXX2 CACHE STRING "Default internal module")
   set(INTERNAL_MODULE_SERIAL YES)
   set(MODULE_SIZE_SML YES)
   set(PXX_FREQUENCY "HIGH")
   set(PWR_BUTTON "PRESS" CACHE STRING "Pwr button type (PRESS/SWITCH)")
   set(CPU_TYPE_FULL STM32F405xG)
-  set(HAPTIC YES)
+  set(HAPTIC NO)
   set(FLAVOUR xetoz1)
   add_definitions(-DBOARD_NAME="xetoz1")
   add_definitions(-DPCBXETOZ)
@@ -40,10 +40,10 @@ if(PCB STREQUAL XETOZ)
   set(PXX2 ON)
   set(BLUETOOTH NO)
   set(IMU NO)
-  set(ROTARY_ENCODER YES)
+  set(ROTARY_ENCODER NO)
   set(USB_CHARGER NO)
   add_definitions(-DMANUFACTURER_XETOZ)
-endif()
+# endif()
 
 message("CPU_TYPE_FULL = ${CPU_TYPE_FULL}")
 if (CPU_TYPE_FULL STREQUAL STM32F405xG)
@@ -89,7 +89,7 @@ set(TARGET_SRC_DIR targets/${TARGET_DIR})
 set(BOARD_COMMON_SRC
   ${TARGET_SRC_DIR}/board.cpp
   ${TARGET_SRC_DIR}/led_driver.cpp
-  ${TARGET_SRC_DIR}/haptic_driver.cpp
+  # ${TARGET_SRC_DIR}/haptic_driver.cpp
   ${TARGET_SRC_DIR}/backlight_driver.cpp
   ${TARGET_SRC_DIR}/${LCD_DRIVER}
   targets/common/arm/stm32/abnormal_reboot.cpp
@@ -151,13 +151,13 @@ if(USB_CHARGER)
   target_sources(board PRIVATE ${TARGET_SRC_DIR}/usb_charger_driver.cpp)
 endif()
 
-if(IMU)
-  target_sources(board PRIVATE targets/common/arm/stm32/lsm6ds_driver.cpp)
-endif()
+# if(IMU)
+#   target_sources(board PRIVATE targets/common/arm/stm32/lsm6ds_driver.cpp)
+# endif()
 
-if(AUTOUPDATE)
-  add_definitions(-DAUTOUPDATE)
-endif()
+# if(AUTOUPDATE)
+#   add_definitions(-DAUTOUPDATE)
+# endif()
 
 if(USE_RTC_CLOCK)
   add_definitions(-DRTCLOCK)
@@ -181,11 +181,11 @@ set(GUI_SRC ${GUI_SRC}
   bmp.cpp
 )
 
-if(PCB STREQUAL XLITE OR PCB STREQUAL XLITES OR PCBREV STREQUAL COMMANDO8)
-  set(FIRMWARE_SRC
-    ${FIRMWARE_SRC}
-    targets/common/arm/stm32/sticks_pwm_driver.cpp)
-endif()
+# if(PCB STREQUAL XLITE OR PCB STREQUAL XLITES OR PCBREV STREQUAL COMMANDO8)
+#   set(FIRMWARE_SRC
+#     ${FIRMWARE_SRC}
+#     targets/common/arm/stm32/sticks_pwm_driver.cpp)
+# endif()
 
 set(FIRMWARE_SRC
   ${FIRMWARE_SRC}
