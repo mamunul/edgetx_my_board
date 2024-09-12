@@ -25,6 +25,10 @@
   #define USB_NAME                     "Radiomaster TX12"
   #define USB_MANUFACTURER             'R', 'M', '_', 'T', 'X', ' ', ' ', ' '  /* 8 bytes */
   #define USB_PRODUCT                  'R', 'M', ' ', 'T', 'X', '1', '2', ' '  /* 8 Bytes */
+#elif defined(XETOZ_Z1)
+  #define USB_NAME                     "Xetoz Z1"
+  #define USB_MANUFACTURER             'X', 'Z', '_', 'T', 'X', ' ', ' ', ' '  /* 8 bytes */
+  #define USB_PRODUCT                  'X', 'Z', ' ', 'Z', '1', ' ', ' ', ' '  /* 8 Bytes */
 #elif defined(RADIO_BOXER)
   #define USB_NAME                     "Radiomaster Boxer"
   #define USB_MANUFACTURER             'R', 'M', '_', 'T', 'X', ' ', ' ', ' '  /* 8 bytes */

@@ -1,5 +1,6 @@
 {
     "targets": [
+        ["Xetoz Z1", "xetoz1-"],
         ["BETAFPV LiteRadio 3 Pro", "lr3pro-"],
         ["Fatfish F16","f16-"],
         ["Flysky EL18", "el18-"],

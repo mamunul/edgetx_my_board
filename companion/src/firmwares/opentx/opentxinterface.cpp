@@ -59,6 +59,8 @@ OpenTxEepromInterface::~OpenTxEepromInterface()
 const char * OpenTxEepromInterface::getName()
 {
   switch (board) {
+    case BOARD_XETOZ_Z1:
+      return "EdgeTX for Xetoz Z1";
     case BOARD_JUMPER_T12:
       return "EdgeTX for Jumper T12";
     case BOARD_JUMPER_TLITE:
@@ -1265,6 +1267,12 @@ void registerOpenTxFirmwares()
 
   static const Firmware::Option opt_bt("bluetooth", Firmware::tr("Support for bluetooth module"));
   static const Firmware::Option opt_internal_gps("internalgps", Firmware::tr("Support internal GPS"));
+
+    /* Xetoz Z1 board */
+  firmware = new OpenTxFirmware(FIRMWAREID("xetoz1"), Firmware::tr("Xetoz Z1"), BOARD_XETOZ_Z1);
+  addOpenTxTaranisOptions(firmware);
+  registerOpenTxFirmware(firmware);
+  addOpenTxRfOptions(firmware, EU + FLEX + AFHDS2A + AFHDS3);
 
   /* BETAFPV LR3PRO board */
   firmware = new OpenTxFirmware(FIRMWAREID("lr3pro"), QCoreApplication::translate("Firmware", "BETAFPV LiteRadio3 Pro"), BOARD_BETAFPV_LR3PRO);
