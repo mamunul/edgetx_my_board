@@ -34,7 +34,7 @@ Keys:                                        PB0 PB1 PB3 PB4 PB5 PB8
 Trims:                                                                    PC0 PC1 PC2 PC3
 Switch:                                      PB9 PB10 PB11 PB12
 Sticks:                                                                   PC4 PC5 PC6 PC7
-PWR_Button, PWR_Led: PA0                     PB2
+PWR_Button, PWR_Led:                         PB2                          PC13
 Module_PWR:          PA1
 Backlight:                                   PB14
 Audio_enable:        PA2
@@ -44,7 +44,7 @@ Status Leds:         PA3 PA4
 USB:                 PA11 PA12 PA15
 32KHz:                                                                    PC14 PC15
 
-AvailablePins:                                                            PC13
+AvailablePins:       PA0                                                     
 
 */
 
@@ -68,17 +68,17 @@ AvailablePins:                                                            PC13
 // Keys
 
 #define KEYS_GPIO_REG_EXIT GPIOB
-#define KEYS_GPIO_PIN_EXIT LL_GPIO_PIN_2  // PB.00
+#define KEYS_GPIO_PIN_EXIT LL_GPIO_PIN_0  // PB.00
 #define KEYS_GPIO_REG_ENTER GPIOB
-#define KEYS_GPIO_PIN_ENTER LL_GPIO_PIN_10  // PB.01
+#define KEYS_GPIO_PIN_ENTER LL_GPIO_PIN_1  // PB.01
 #define KEYS_GPIO_REG_UP GPIOB
-#define KEYS_GPIO_PIN_UP LL_GPIO_PIN_9  // PB.03
+#define KEYS_GPIO_PIN_UP LL_GPIO_PIN_3  // PB.03
 #define KEYS_GPIO_REG_DOWN GPIOB
-#define KEYS_GPIO_PIN_DOWN LL_GPIO_PIN_11  // PB.04
+#define KEYS_GPIO_PIN_DOWN LL_GPIO_PIN_4  // PB.04
 #define KEYS_GPIO_REG_LEFT GPIOB
-#define KEYS_GPIO_PIN_LEFT LL_GPIO_PIN_7  // PB.05
+#define KEYS_GPIO_PIN_LEFT LL_GPIO_PIN_5  // PB.05
 #define KEYS_GPIO_REG_RIGHT GPIOB
-#define KEYS_GPIO_PIN_RIGHT LL_GPIO_PIN_3  // PB.08
+#define KEYS_GPIO_PIN_RIGHT LL_GPIO_PIN_8  // PB.08
 
 // Trims
 
@@ -103,13 +103,13 @@ AvailablePins:                                                            PC13
 #define TRIMS_GPIO_PIN_RHR LL_GPIO_PIN_13  // PC.07
 #else
 #define TRIMS_GPIO_REG_LHL GPIOC
-#define TRIMS_GPIO_PIN_LHL LL_GPIO_PIN_4  // PC.00
+#define TRIMS_GPIO_PIN_LHL LL_GPIO_PIN_0  // PC.00
 #define TRIMS_GPIO_REG_LHR GPIOC
-#define TRIMS_GPIO_PIN_LHR LL_GPIO_PIN_5  // PC.01
+#define TRIMS_GPIO_PIN_LHR LL_GPIO_PIN_1  // PC.01
 #define TRIMS_GPIO_REG_LVU GPIOC
-#define TRIMS_GPIO_PIN_LVU LL_GPIO_PIN_0  // PC.02
+#define TRIMS_GPIO_PIN_LVU LL_GPIO_PIN_2  // PC.02
 #define TRIMS_GPIO_REG_LVD GPIOC
-#define TRIMS_GPIO_PIN_LVD LL_GPIO_PIN_1  // PC.03
+#define TRIMS_GPIO_PIN_LVD LL_GPIO_PIN_3  // PC.03
 #define TRIMS_VIRTUAL_RV
 #define TRIMS_VIRTUAL_RH
 #endif
@@ -118,25 +118,25 @@ AvailablePins:                                                            PC13
 #define STORAGE_SWITCH_A
 #define HARDWARE_SWITCH_A
 #define SWITCHES_GPIO_REG_A GPIOB
-#define SWITCHES_GPIO_PIN_A LL_GPIO_PIN_5  // PB.09
+#define SWITCHES_GPIO_PIN_A LL_GPIO_PIN_9  // PB.09
 
 #define STORAGE_SWITCH_B
 #define HARDWARE_SWITCH_B
 #define SWITCHES_B_INVERTED
 #define SWITCHES_GPIO_REG_B GPIOB
-#define SWITCHES_GPIO_PIN_B LL_GPIO_PIN_2  // PB.10
+#define SWITCHES_GPIO_PIN_B LL_GPIO_PIN_10  // PB.10
 
 #define STORAGE_SWITCH_C
 #define HARDWARE_SWITCH_C
 #define SWITCHES_C_INVERTED
 #define SWITCHES_GPIO_REG_C GPIOB
-#define SWITCHES_GPIO_PIN_C LL_GPIO_PIN_2  // PB.11
+#define SWITCHES_GPIO_PIN_C LL_GPIO_PIN_11  // PB.11
 
 #define STORAGE_SWITCH_D
 #define HARDWARE_SWITCH_D
 #define SWITCHES_D_INVERTED
 #define SWITCHES_GPIO_REG_D GPIOB
-#define SWITCHES_GPIO_PIN_D LL_GPIO_PIN_2  // PB.12
+#define SWITCHES_GPIO_PIN_D LL_GPIO_PIN_12  // PB.12
 
 // ADC
 #define ADC_MAIN ADC3
@@ -149,29 +149,28 @@ AvailablePins:                                                            PC13
 #define ADC_SAMPTIME LL_ADC_SAMPLINGTIME_28CYCLES
 #define ADC_CHANNEL_RTC_BAT LL_ADC_CHANNEL_VBAT
 
-#define ADC_GPIO_PIN_STICK_RV LL_GPIO_PIN_0    // PC.04
-#define ADC_GPIO_PIN_STICK_RH LL_GPIO_PIN_1    // PC.05
-#define ADC_GPIO_PIN_STICK_LH LL_GPIO_PIN_2    // PC.06
-#define ADC_GPIO_PIN_STICK_LV LL_GPIO_PIN_3    // PC.07
-#define ADC_CHANNEL_STICK_RV LL_ADC_CHANNEL_0  // ADC1_IN0
-#define ADC_CHANNEL_STICK_RH LL_ADC_CHANNEL_1  // ADC1_IN1
-#define ADC_CHANNEL_STICK_LH LL_ADC_CHANNEL_2  // ADC1_IN2
-#define ADC_CHANNEL_STICK_LV LL_ADC_CHANNEL_3  // ADC1_IN3
+#define ADC_GPIO_PIN_STICK_RV LL_GPIO_PIN_4    // PC.04
+#define ADC_GPIO_PIN_STICK_RH LL_GPIO_PIN_5    // PC.05
+#define ADC_GPIO_PIN_STICK_LH LL_GPIO_PIN_6    // PC.06
+#define ADC_GPIO_PIN_STICK_LV LL_GPIO_PIN_7    // PC.07
+#define ADC_CHANNEL_STICK_RV LL_ADC_CHANNEL_4  // ADC1_IN0
+#define ADC_CHANNEL_STICK_RH LL_ADC_CHANNEL_5  // ADC1_IN1
+#define ADC_CHANNEL_STICK_LH LL_ADC_CHANNEL_6  // ADC1_IN2
+#define ADC_CHANNEL_STICK_LV LL_ADC_CHANNEL_7  // ADC1_IN3
 
-#define ADC_GPIO_PIN_BATT LL_GPIO_PIN_0  // PB.13
-#define ADC_GPIOA_PINS                                                     \
+#define ADC_GPIO_PIN_BATT LL_GPIO_PIN_13  // PB.13
+#define ADC_GPIOC_PINS                                                     \
   (ADC_GPIO_PIN_STICK_RV | ADC_GPIO_PIN_STICK_RH | ADC_GPIO_PIN_STICK_LH | \
    ADC_GPIO_PIN_STICK_LV)
-#define ADC_GPIOC_PINS (ADC_GPIO_PIN_BATT)
-#define ADC_CHANNEL_BATT LL_ADC_CHANNEL_10  // ADC1_IN10
+#define ADC_GPIOB_PINS (ADC_GPIO_PIN_BATT)
 
 #define ADC_DIRECTION {1, -1, -1, 1, -1, 1}
 #define ADC_VREF_PREC2 300
 
 // PWR and LED driver
 
-#define PWR_SWITCH_GPIO GPIO_PIN(GPIOA, 1)  // PA.01
-#define PWR_ON_GPIO GPIO_PIN(GPIOA, 0)      // PA.00
+#define PWR_SWITCH_GPIO GPIO_PIN(GPIOC, 13)  // PC.13
+#define PWR_ON_GPIO GPIO_PIN(GPIOB, 2)      // PB.02
 
 #define STATUS_LEDS
 #define GPIO_LED_GPIO_ON gpio_clear
@@ -184,7 +183,7 @@ AvailablePins:                                                            PC13
 
 #define EXTERNAL_ANTENNA
 
-#define INTMODULE_PWR_GPIO GPIO_PIN(GPIOB, 2)  // PB.02
+#define INTMODULE_PWR_GPIO GPIO_PIN(GPIOA, 1)  // PA.01
 #define INTMODULE_TX_GPIO GPIO_PIN(GPIOA, 9)   // PA.09
 #define INTMODULE_RX_GPIO GPIO_PIN(GPIOA, 10)  // PA.10
 #define INTMODULE_USART USART1
@@ -200,7 +199,7 @@ AvailablePins:                                                            PC13
 // Serial Port
 
 // Telemetry
-#define TELEMETRY_DIR_GPIO GPIO_PIN(GPIOD, 2)  // PD.02
+// #define TELEMETRY_DIR_GPIO GPIO_PIN(GPIOD, 2)  // PD.02
 
 #define TELEMETRY_SET_INPUT 0
 #define TELEMETRY_TX_GPIO GPIO_PIN(GPIOA, 9)   // PA.09
@@ -256,6 +255,8 @@ AvailablePins:                                                            PC13
 #endif
 
 // USB
+// #define USB_RCC_AHB1Periph_GPIO         RCC_AHB1Periph_GPIOA
+// #define USB_GPIO                        GPIOA
 #define USB_GPIO_VBUS GPIO_PIN(GPIOA, 15)  // PA.15
 #define USB_GPIO_DM GPIO_PIN(GPIOA, 11)    // PA.11
 #define USB_GPIO_DP GPIO_PIN(GPIOA, 12)    // PA.12
