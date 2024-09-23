@@ -751,6 +751,8 @@ class OpenTxSimulatorFactory: public SimulatorFactory
       return Board::BOARD_FLYSKY_NV14;
 #elif defined(PCBPL18)
       return Board::BOARD_FLYSKY_PL18;
+#elif defined(PCBXETOZ)
+      return Board::BOARD_XETOZ_Z1;
 #else
       return Board::BOARD_TARANIS_X9D;
 #endif

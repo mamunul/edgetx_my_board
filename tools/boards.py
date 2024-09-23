@@ -1,6 +1,10 @@
 #!/usr/bin/python3
 
 boards = {
+    "XETOZ1": {
+        "PCB": "XETOZ",
+        "PCBREV": "XETOZ1"
+    },
     "XLITE": {
         "PCB": "XLITE",
     },

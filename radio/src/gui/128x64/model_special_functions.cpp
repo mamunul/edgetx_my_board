@@ -75,7 +75,7 @@ void onCustomFunctionsFileSelectionMenu(const char * result)
   }
 }
 
-#if defined(PCBTARANIS)
+#if defined(PCBTARANIS) || defined(PCBXETOZ)
 void onAdjustGvarSourceLongEnterPress(const char * result)
 {
   CustomFunctionData * cfn = &g_model.customFn[menuVerticalPosition];

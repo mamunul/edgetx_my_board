@@ -102,7 +102,7 @@ extern HardwareOptions hardwareOptions;
 #define BATTERY_MAX 42   // 4.2V
 #endif
 
-#define BATT_SCALE 150
+#define BATT_SCALE 131
 
 #if defined(__cplusplus) && !defined(SIMU)
 extern "C" {
@@ -272,7 +272,7 @@ void lcdFlushed();
 
   // 23711  // = 2047*128*BATT_SCALE/(100*(VREF*(160+499)/160))
 
-#define BATTERY_DIVIDER 39500
+#define BATTERY_DIVIDER 26214
 #define VOLTAGE_DROP 20
 
 #define NUM_TRIMS 4

@@ -1,6 +1,12 @@
 """Default switches configurations and display positions."""
 
 SWITCH_CONFIG = {
+    "xetoz1": {
+        "SA": { "default": "2POS"   },
+        "SB": { "default": "2POS"   },
+        "SC": { "default": "2POS"   },
+        "SD": { "default": "2POS"   }
+    },
     "boxer": {
         # left side
         "SA": {"default": "2POS",   "display": [0, 0]},

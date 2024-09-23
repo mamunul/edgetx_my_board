@@ -28,58 +28,82 @@ STM32F405 Pin assignment
 
 Module(UART):        PA9 PA10
 Volume Encoder(I2C):                         PB6 PB7
-SDCard:              PA8                                                  PC8 PC9 PC10 PC11 PC12     PD2
+SDCard:                                                                   PC8 PC9 PC10 PC11 PC12     PD2
 LCD:                 PA5 PA6 PA7 PA13 PA14
 Keys:                                        PB0 PB1 PB3 PB4 PB5 PB8
-Trims:                                                                    PC0 PC1 PC2 PC3
+Trims:               PA0 PA2 PA8  PA15                                    PC0 PC1 PC2 PC3
 Switch:                                      PB9 PB10 PB11 PB12
 Sticks:                                                                   PC4 PC5 PC6 PC7
 PWR_Button, PWR_Led:                         PB2                          PC13
 Module_PWR:          PA1
 Backlight:                                   PB14
-Audio_enable:        PA2
+Audio_enable:        
 Audio_OUT:                                   PB15
 Battery:                                     PB13
 Status Leds:         PA3 PA4
-USB:                 PA11 PA12 PA15
+USB:                 PA11 PA12 
 32KHz:                                                                    PC14 PC15
 
-AvailablePins:       PA0                                                     
+AvailablePins:                                                            
 
 */
 
 
-#if defined(STM32F4)
+// #if defined(STM32F4)
 #define CPU_FREQ 168000000
 #define PERI1_FREQUENCY 42000000
 #define PERI2_FREQUENCY 84000000
 #define TIMER_MULT_APB1 2
 #define TIMER_MULT_APB2 2
-#else
-#define CPU_FREQ 120000000
-#define PERI1_FREQUENCY 30000000
-#define PERI2_FREQUENCY 60000000
-#define TIMER_MULT_APB1 2
-#define TIMER_MULT_APB2 2
-#endif
+// #else
+// #define CPU_FREQ 120000000
+// #define PERI1_FREQUENCY 30000000
+// #define PERI2_FREQUENCY 60000000
+// #define TIMER_MULT_APB1 2
+// #define TIMER_MULT_APB2 2
+// #endif
 
 #define TELEMETRY_EXTI_PRIO 0  // required for soft serial
 
-// Keys
+// Keys - PCBXLITE/NAVIGATION_XLITE
+// #define KEYS_GPIO_REG_SHIFT            GPIOD
+// #define KEYS_GPIO_PIN_SHIFT          LL_GPIO_PIN_0  // PB.00
+// #define KEYS_GPIO_REG_EXIT GPIOB
+// #define KEYS_GPIO_PIN_EXIT LL_GPIO_PIN_0  // PB.00
+// #define KEYS_GPIO_REG_ENTER GPIOB
+// #define KEYS_GPIO_PIN_ENTER LL_GPIO_PIN_1  // PB.01
+// #define KEYS_GPIO_REG_UP GPIOB
+// #define KEYS_GPIO_PIN_UP LL_GPIO_PIN_3  // PB.03
+// #define KEYS_GPIO_REG_DOWN GPIOB
+// #define KEYS_GPIO_PIN_DOWN LL_GPIO_PIN_4  // PB.04
+// #define KEYS_GPIO_REG_LEFT GPIOB
+// #define KEYS_GPIO_PIN_LEFT LL_GPIO_PIN_5  // PB.05
+// #define KEYS_GPIO_REG_RIGHT GPIOB
+// #define KEYS_GPIO_PIN_RIGHT LL_GPIO_PIN_8  // PB.08
 
-#define KEYS_GPIO_REG_EXIT GPIOB
-#define KEYS_GPIO_PIN_EXIT LL_GPIO_PIN_0  // PB.00
-#define KEYS_GPIO_REG_ENTER GPIOB
-#define KEYS_GPIO_PIN_ENTER LL_GPIO_PIN_1  // PB.01
-#define KEYS_GPIO_REG_UP GPIOB
-#define KEYS_GPIO_PIN_UP LL_GPIO_PIN_3  // PB.03
-#define KEYS_GPIO_REG_DOWN GPIOB
-#define KEYS_GPIO_PIN_DOWN LL_GPIO_PIN_4  // PB.04
-#define KEYS_GPIO_REG_LEFT GPIOB
-#define KEYS_GPIO_PIN_LEFT LL_GPIO_PIN_5  // PB.05
-#define KEYS_GPIO_REG_RIGHT GPIOB
-#define KEYS_GPIO_PIN_RIGHT LL_GPIO_PIN_8  // PB.08
+//-----------------
 
+  #define KEYS_GPIO_REG_MENU            GPIOB
+  #define KEYS_GPIO_PIN_MENU            LL_GPIO_PIN_7  // PB.07
+  #define KEYS_GPIO_REG_EXIT            GPIOB
+  #define KEYS_GPIO_PIN_EXIT            LL_GPIO_PIN_2  // PB.02
+  #define KEYS_GPIO_REG_PAGEDN          GPIOB
+  #define KEYS_GPIO_PIN_PAGEDN          LL_GPIO_PIN_3  // PB.03
+  #define KEYS_GPIO_REG_PLUS            GPIOB
+  #define KEYS_GPIO_PIN_PLUS            LL_GPIO_PIN_10 // PB.10
+  #define KEYS_GPIO_REG_MINUS           GPIOB
+  #define KEYS_GPIO_PIN_MINUS           LL_GPIO_PIN_11 // PB.11
+  #define KEYS_GPIO_REG_ENTER           GPIOB
+  #define KEYS_GPIO_PIN_ENTER           LL_GPIO_PIN_12 // PB.12
+//--------------------
+  // #define KEYS_GPIO_REG_MENU            GPIOD
+  // #define KEYS_GPIO_PIN_MENU            LL_GPIO_PIN_7  // PD.07
+  // #define KEYS_GPIO_REG_EXIT            GPIOD
+  // #define KEYS_GPIO_PIN_EXIT            LL_GPIO_PIN_2  // PD.02
+  // #define KEYS_GPIO_REG_PAGEDN          GPIOD
+  // #define KEYS_GPIO_PIN_PAGEDN          LL_GPIO_PIN_3  // PD.03
+  // #define KEYS_GPIO_REG_ENTER           GPIOF
+  // #define KEYS_GPIO_PIN_ENTER           LL_GPIO_PIN_0  // PF.00
 // Trims
 
 // #define TRIMS_COUNT_8
@@ -139,12 +163,12 @@ AvailablePins:       PA0
 #define SWITCHES_GPIO_PIN_D LL_GPIO_PIN_12  // PB.12
 
 // ADC
-#define ADC_MAIN ADC3
+#define ADC_MAIN ADC1
 #define ADC_DMA DMA2
-#define ADC_DMA_CHANNEL LL_DMA_CHANNEL_2
-#define ADC_DMA_STREAM LL_DMA_STREAM_0
-#define ADC_DMA_STREAM_IRQ DMA2_Stream0_IRQn
-#define ADC_DMA_STREAM_IRQHandler DMA2_Stream0_IRQHandler
+#define ADC_DMA_CHANNEL LL_DMA_CHANNEL_0
+#define ADC_DMA_STREAM LL_DMA_STREAM_4
+#define ADC_DMA_STREAM_IRQ DMA2_Stream4_IRQn
+#define ADC_DMA_STREAM_IRQHandler DMA2_Stream4_IRQHandler
 
 #define ADC_SAMPTIME LL_ADC_SAMPLINGTIME_28CYCLES
 #define ADC_CHANNEL_RTC_BAT LL_ADC_CHANNEL_VBAT
@@ -157,6 +181,7 @@ AvailablePins:       PA0
 #define ADC_CHANNEL_STICK_RH LL_ADC_CHANNEL_5  // ADC1_IN1
 #define ADC_CHANNEL_STICK_LH LL_ADC_CHANNEL_6  // ADC1_IN2
 #define ADC_CHANNEL_STICK_LV LL_ADC_CHANNEL_7  // ADC1_IN3
+ #define ADC_CHANNEL_BATT              LL_ADC_CHANNEL_10 // ADC1_IN10
 
 #define ADC_GPIO_PIN_BATT LL_GPIO_PIN_13  // PB.13
 #define ADC_GPIOC_PINS                                                     \
@@ -165,7 +190,7 @@ AvailablePins:       PA0
 #define ADC_GPIOB_PINS (ADC_GPIO_PIN_BATT)
 
 #define ADC_DIRECTION {1, -1, -1, 1, -1, 1}
-#define ADC_VREF_PREC2 300
+#define ADC_VREF_PREC2 330
 
 // PWR and LED driver
 

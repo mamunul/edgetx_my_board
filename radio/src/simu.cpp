@@ -390,6 +390,13 @@ void OpenTxSim::updateKeysAndSwitches(bool start)
     KEY_BackSpace, KEY_EXIT,
     KEY_Up,        KEY_PLUS,
     KEY_Down,      KEY_MINUS,
+#elif defined(PCBXETOZ)
+    KEY_Return,    KEY_MENU,
+    KEY_BackSpace, KEY_EXIT,
+    KEY_Right,     KEY_RIGHT,
+    KEY_Left,      KEY_LEFT,
+    KEY_Up,        KEY_UP,
+    KEY_Down,      KEY_DOWN,
 #else
     KEY_Return,    KEY_MENU,
     KEY_BackSpace, KEY_EXIT,

@@ -25,6 +25,7 @@
 
 #include "switches.h"
 #include "input_mapping.h"
+#include <stdio.h>
 
 #define BIGSIZE       DBLSIZE
 #if defined (PCBTARANIS)
@@ -423,11 +424,14 @@ void menuMainView(event_t event)
   uint8_t view = g_eeGeneral.view;
   uint8_t view_base = view & 0x0f;
 
+
   switch (event) {
+    TRACE("menuMainView:%d\n",event);
     case EVT_ENTRY:
       killEvents(KEY_EXIT);
       killEvents(KEY_UP);
       killEvents(KEY_DOWN);
+      TRACE("menuMainView EVT_ENTRY\n");
       break;
 
       /* TODO if timer2 is OFF, it's possible to use this timer2 as in er9x...
@@ -447,6 +451,7 @@ void menuMainView(event_t event)
       break;
 
     case EVT_KEY_CONTEXT_MENU:
+     TRACE("menuMainView EVT_KEY_CONTEXT_MENU\n");
       if (modelHasNotes()) {
         POPUP_MENU_ADD_ITEM(STR_VIEW_NOTES);
       }
@@ -461,10 +466,12 @@ void menuMainView(event_t event)
 #endif
 
     case EVT_KEY_MODEL_MENU:
+     TRACE("menuMainView EVT_KEY_MODEL_MENU\n");
       pushMenu(menuModelSelect);
       break;
 
     case EVT_KEY_GENERAL_MENU:
+     TRACE("menuMainView EVT_KEY_GENERAL_MENU\n");
       pushMenu(menuTabGeneral[0].menuFunc);
       break;
 

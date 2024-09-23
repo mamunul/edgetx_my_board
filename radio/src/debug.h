@@ -255,7 +255,7 @@ enum InterruptNames {
 #endif // #if defined(DEBUG_USB_INTERRUPTS)
   INT_LAST
 };
-#elif defined(PCBTARANIS)
+#elif defined(PCBTARANIS) || defined(PCBXETOZ)
 enum InterruptNames {
   INT_TICK,
   INT_5MS,

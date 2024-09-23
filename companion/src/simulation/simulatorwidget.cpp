@@ -70,6 +70,7 @@ SimulatorWidget::SimulatorWidget(QWidget * parent, SimulatorInterface * simulato
       break;
     case Board::BOARD_TARANIS_X9D:
     case Board::BOARD_TARANIS_X9DP:
+    case Board::BOARD_XETOZ_Z1:
       radioUiWidget = new SimulatedUIWidgetX9(simulator, this);
       break;
     case Board::BOARD_TARANIS_X9DP_2019:
