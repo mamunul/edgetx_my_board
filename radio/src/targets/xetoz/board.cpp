@@ -360,3 +360,5 @@ bool isJackPlugged()
   return debounced_state;
 }
 #endif
+
+int usbPlugged() { return false; }

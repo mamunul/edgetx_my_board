@@ -28,21 +28,21 @@ STM32F405 Pin assignment
 
 Module(UART):        PA9 PA10
 Volume Encoder(I2C):                         PB6 PB7
-SDCard:                                                                   PC8 PC9 PC10 PC11 PC12     PD2
-LCD:                 PA5 PA6 PA7 PA13 PA14
+SDCard:              PA8                                                  PC8 PC9 PC10 PC11 PC12     PD2
+LCD:                 PA5 PA6 PA7 PA13 PA14                                    
 Keys:                                        PB0 PB1 PB3 PB4 PB5 PB8
-Trims:               PA0 PA2 PA8  PA15                                    PC0 PC1 PC2 PC3
+Trims:               PA0 PA2 PA15                                         PC0 PC1 PC2 PC3 PC15
 Switch:                                      PB9 PB10 PB11 PB12
 Sticks:                                                                   PC4 PC5 PC6 PC7
 PWR_Button, PWR_Led:                         PB2                          PC13
 Module_PWR:          PA1
 Backlight:                                   PB14
-Audio_enable:        
+Audio_enable:                                                             PC14
 Audio_OUT:                                   PB15
 Battery:                                     PB13
 Status Leds:         PA3 PA4
 USB:                 PA11 PA12 
-32KHz:                                                                    PC14 PC15
+32KHz:                                                                     
 
 AvailablePins:                                                            
 
@@ -84,17 +84,17 @@ AvailablePins:
 //-----------------
 
   #define KEYS_GPIO_REG_MENU            GPIOB
-  #define KEYS_GPIO_PIN_MENU            LL_GPIO_PIN_7  // PB.07
+  #define KEYS_GPIO_PIN_MENU            LL_GPIO_PIN_7  // PB.00
   #define KEYS_GPIO_REG_EXIT            GPIOB
-  #define KEYS_GPIO_PIN_EXIT            LL_GPIO_PIN_2  // PB.02
+  #define KEYS_GPIO_PIN_EXIT            LL_GPIO_PIN_2  // PB.01
   #define KEYS_GPIO_REG_PAGEDN          GPIOB
   #define KEYS_GPIO_PIN_PAGEDN          LL_GPIO_PIN_3  // PB.03
   #define KEYS_GPIO_REG_PLUS            GPIOB
-  #define KEYS_GPIO_PIN_PLUS            LL_GPIO_PIN_10 // PB.10
+  #define KEYS_GPIO_PIN_PLUS            LL_GPIO_PIN_10 // PB.04
   #define KEYS_GPIO_REG_MINUS           GPIOB
-  #define KEYS_GPIO_PIN_MINUS           LL_GPIO_PIN_11 // PB.11
+  #define KEYS_GPIO_PIN_MINUS           LL_GPIO_PIN_11 // PB.05
   #define KEYS_GPIO_REG_ENTER           GPIOB
-  #define KEYS_GPIO_PIN_ENTER           LL_GPIO_PIN_12 // PB.12
+  #define KEYS_GPIO_PIN_ENTER           LL_GPIO_PIN_12 // PB.08
 //--------------------
   // #define KEYS_GPIO_REG_MENU            GPIOD
   // #define KEYS_GPIO_PIN_MENU            LL_GPIO_PIN_7  // PD.07
@@ -110,21 +110,21 @@ AvailablePins:
 
 #if defined(TRIMS_COUNT_8)
 #define TRIMS_GPIO_REG_LHL GPIOA
-#define TRIMS_GPIO_PIN_LHL LL_GPIO_PIN_1  // PC.00
+#define TRIMS_GPIO_PIN_LHL LL_GPIO_PIN_0  // PA.00
 #define TRIMS_GPIO_REG_LHR GPIOA
-#define TRIMS_GPIO_PIN_LHR LL_GPIO_PIN_0  // PC.01
+#define TRIMS_GPIO_PIN_LHR LL_GPIO_PIN_2  // PA.02
 #define TRIMS_GPIO_REG_LVD GPIOA
-#define TRIMS_GPIO_PIN_LVD LL_GPIO_PIN_4  // PC.02
-#define TRIMS_GPIO_REG_LVU GPIOA
-#define TRIMS_GPIO_PIN_LVU LL_GPIO_PIN_3  // PC.03
-#define TRIMS_GPIO_REG_RVD GPIOA
-#define TRIMS_GPIO_PIN_RVD LL_GPIO_PIN_3  // PC.04
-#define TRIMS_GPIO_REG_RHL GPIOA
-#define TRIMS_GPIO_PIN_RHL LL_GPIO_PIN_1  // PC.05
-#define TRIMS_GPIO_REG_RVU GPIOA
-#define TRIMS_GPIO_PIN_RVU LL_GPIO_PIN_2  // PC.06
-#define TRIMS_GPIO_REG_RHR GPIOA
-#define TRIMS_GPIO_PIN_RHR LL_GPIO_PIN_13  // PC.07
+#define TRIMS_GPIO_PIN_LVD LL_GPIO_PIN_15  // PA.15
+#define TRIMS_GPIO_REG_LVU GPIOC
+#define TRIMS_GPIO_PIN_LVU LL_GPIO_PIN_15  // PC.15
+#define TRIMS_GPIO_REG_RVD GPIOC
+#define TRIMS_GPIO_PIN_RVD LL_GPIO_PIN_0 // PC.00
+#define TRIMS_GPIO_REG_RHL GPIOC
+#define TRIMS_GPIO_PIN_RHL LL_GPIO_PIN_1  // PC.01
+#define TRIMS_GPIO_REG_RVU GPIOC
+#define TRIMS_GPIO_PIN_RVU LL_GPIO_PIN_2  // PC.02
+#define TRIMS_GPIO_REG_RHR GPIOC
+#define TRIMS_GPIO_PIN_RHR LL_GPIO_PIN_3  // PC.03
 #else
 #define TRIMS_GPIO_REG_LHL GPIOC
 #define TRIMS_GPIO_PIN_LHL LL_GPIO_PIN_0  // PC.00
@@ -181,9 +181,10 @@ AvailablePins:
 #define ADC_CHANNEL_STICK_RH LL_ADC_CHANNEL_5  // ADC1_IN1
 #define ADC_CHANNEL_STICK_LH LL_ADC_CHANNEL_6  // ADC1_IN2
 #define ADC_CHANNEL_STICK_LV LL_ADC_CHANNEL_7  // ADC1_IN3
- #define ADC_CHANNEL_BATT              LL_ADC_CHANNEL_10 // ADC1_IN10
 
+#define ADC_CHANNEL_BATT              LL_ADC_CHANNEL_10 // ADC1_IN10
 #define ADC_GPIO_PIN_BATT LL_GPIO_PIN_13  // PB.13
+
 #define ADC_GPIOC_PINS                                                     \
   (ADC_GPIO_PIN_STICK_RV | ADC_GPIO_PIN_STICK_RH | ADC_GPIO_PIN_STICK_LH | \
    ADC_GPIO_PIN_STICK_LV)
@@ -282,7 +283,7 @@ AvailablePins:
 // USB
 // #define USB_RCC_AHB1Periph_GPIO         RCC_AHB1Periph_GPIOA
 // #define USB_GPIO                        GPIOA
-#define USB_GPIO_VBUS GPIO_PIN(GPIOA, 15)  // PA.15
+// #define USB_GPIO_VBUS GPIO_PIN(GPIOA, 15)  // PA.15 - comment this GPIO usage
 #define USB_GPIO_DM GPIO_PIN(GPIOA, 11)    // PA.11
 #define USB_GPIO_DP GPIO_PIN(GPIOA, 12)    // PA.12
 #define USB_GPIO_AF GPIO_AF10
@@ -362,7 +363,7 @@ AvailablePins:
 #define AUDIO_DMA_Stream_IRQHandler DMA1_Stream5_IRQHandler
 #define AUDIO_TIMER TIM6
 
-#define AUDIO_SPEAKER_ENABLE_GPIO GPIO_PIN(GPIOA, 2)  // PA.02
+#define AUDIO_SPEAKER_ENABLE_GPIO GPIO_PIN(GPIOC, 14)  // PC.14
 
 // Millisecond timer
 #define MS_TIMER TIM14
